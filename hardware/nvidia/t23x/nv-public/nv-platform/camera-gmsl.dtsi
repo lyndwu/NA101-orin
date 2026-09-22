@@ -1,0 +1,110 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// SPDX-FileCopyrightText: Copyright (c) 2022-2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+/* GMSL_CAMERA_TYPE_DEFAULT: Don't change it, build script will auto update this macro! */
+#define GMSL_CAMERA_TYPE_DEFAULT
+
+#ifdef GMSL_CAMERA_TYPE_SHW3H
+// Sensor: SENSING SHW3H (ISX031, MAX9295A, MAX96712)
+#include "tegra234-camera-SHW3H.dtsi"
+////#include "tegra234-camera-gmsl-1x4lane.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_OMS
+#include "tegra234-camera-oms-gmsl.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_AR0234
+#include "tegra234-camera-linghou-ar0234.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_SHW5G
+// Sensor: SENSING SHW5G
+#include "tegra234-camera-gmsl-SHW5G-2x4lane.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_S36
+// Sensor: SENSING S36
+#include "tegra234-camera-gmsl-S36-4port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_S56
+// Sensor: SENSING S56
+#include "tegra234-camera-gmsl-S56-4port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_S56A
+// Sensor: SENSING S56A
+#include "tegra234-camera-gmsl-S56A-4port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_SG3S_GMSL2
+#include "tegra234-camera-gmsl-SG3S-4port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_SG3S_GMSL2F
+#include "tegra234-camera-gmsl-SG3S-4port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_LI_VENUS_ISX021
+#include "tegra234-camera-LI-VENUS-ISX021-gmsl.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_LH_SF_3M // Replace by GMSL_CAMERA_TYPE_SHW3H
+// Sensor: LINKHOU lh-sf-3m (ISX031, MAX9295A, MAX96712)
+#include "tegra234-camera-lhsf3m.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_LH_DS_M0 // Replace by GMSL_CAMERA_TYPE_SHW3H
+// Sensor: LINKHOU LH_DS_M0 (MAX9295D, MAX96712)
+#include "tegra234-camera-lhdsm0.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_335LG
+// Sensor: SENSING Orbbec Gemini 335Lg
+#include "tegra234-camera-g300-AC-port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_345LG
+// Sensor: SENSING Orbbec Gemini 345Lg
+//#include "tegra234-camera-g300.dtsi"
+#include "tegra234-camera-g300-345AC-port.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_ZED_X_MINI
+// Sensor: ZED X mini
+#include "tegra234-p3737-0000-camera-ar0234-a00-stereolabs_i2c.dtsi"
+/ {
+	vendor-gmsl-camera-info {
+		compatible = "vendor-gmsl-camera-info";
+		GMSL_CAMERA_TYPE = "ZED_X_MINI";
+		dtsname = "tegra234-camera-zed-x-mini.dtsi";
+		version = "v1.0.0";
+		GMSLA = "ZED_X_MINI";
+		GMSLB = "ZED_X_MINI";
+		description = "ZED_X_MINI 4 port x2";
+	};
+};
+#endif
+
+// === MIX ===
+#ifdef GMSL_CAMERA_TYPE_MIX_SHW3H_335LG
+// MIX Sensor: SHW3H + 335Lg
+#include "tegra234-camera-gmsl-mix-sh3-g300.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_MIX_LHSF3M_335LG
+// MIX Sensor: LH_SF_3M + 335Lg
+#include "tegra234-camera-gmsl-mix-lhsf3m-335lg.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_MIX_SHW5G_335LG
+// MIX Sensor: SHW5G + 335Lg
+#include "tegra234-camera-gmsl-mix-shw5g-g300.dtsi"
+#endif
+
+#ifdef GMSL_CAMERA_TYPE_MIX_SHW3H_S36
+// MIX Sensor: SHW3H + S36
+#include "tegra234-camera-gmsl-mix-shw3h-s36.dtsi"
+#endif
+

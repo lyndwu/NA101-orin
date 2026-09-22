@@ -1,0 +1,212 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+
+// Module files must be included first
+#include "tegra234-p3701-0000.dtsi"
+#include "tegra234-p3737-0000+p3701.dtsi"
+
+#define BOARD_VERSION_AA00 0
+#define BOARD_VERSION_AA01 1
+#define BOARD_VERSION_AA02 2
+#define BOARD_VERSION_AA03 3
+#define BOARD_VERSION_AA04 4
+
+#ifndef BOARD_VERSION
+#define BOARD_VERSION BOARD_VERSION_AA04
+#endif
+
+/ {
+	model = "NVIDIA Jetson AGX Orin Developer Kit";
+	compatible = "nvidia,p3737-0000+p3701-0000", "nvidia,p3701-0000", "nvidia,tegra234";
+	vendor_board_version = <BOARD_VERSION>;
+
+	bus@0{
+		pcie@14160000 { //C4 M.2 KeyM
+			nvidia,sub-rst-gpio = <&gpio TEGRA234_MAIN_GPIO(AC, 7) GPIO_ACTIVE_LOW>;
+		};
+
+		pcie@141a0000 { //C5  asm1806
+			nvidia,sub-rst-gpio = <&gpio TEGRA234_MAIN_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
+			nvidia,sub-brst-gpio = <&gpio TEGRA234_MAIN_GPIO(AC, 3) GPIO_ACTIVE_HIGH>;
+		};
+
+		gpio@2200000 {
+			usb_vbus_en {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(Y, 2) 0>;
+					label = "usb_vbus_en";
+					status = "okay";
+			};
+			m2Ekey_wifi_disable {
+					gpio-hog;
+					output-high;
+					gpios = <TEGRA234_MAIN_GPIO(G, 3) 0>;
+					label = "m2Ekey_wifi_disable";
+					status = "okay";
+			};
+			m2Ekey_bt_disable {
+					gpio-hog;
+					output-high;
+					gpios = <TEGRA234_MAIN_GPIO(Q, 1) 0>;
+					label = "m2Ekey_bt_disable";
+					status = "okay";
+			};
+			aqr1113_xfi0_rst_en {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(A, 0) 0>;
+					label = "aqr1113_xfi0_rst_en";
+					status = "okay";
+			};
+			aqr1113_0v7_en {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(A, 1) 0>;
+					label = "aqr1113_0v7_en";
+					status = "okay";
+			};
+			cpld_pwr_en {
+					gpio-hog;
+					output-high;
+					gpios = <TEGRA234_MAIN_GPIO(AC, 4) 0>;
+					label = "cpld_pwr_en";
+					status = "okay";
+			};
+			gpio_in0 {
+					gpio-hog;
+					input;
+					gpios = <TEGRA234_MAIN_GPIO(P, 4) 0>;
+					label = "gpio_in0";
+					status = "okay";
+			};
+			gpio_in1 {
+					gpio-hog;
+					input;
+					gpios = <TEGRA234_MAIN_GPIO(Q, 4) 0>;
+					label = "gpio_in1";
+					status = "okay";
+			};
+			gpio_in2 {
+					gpio-hog;
+					input;
+					gpios = <TEGRA234_MAIN_GPIO(N, 2) 0>;
+					label = "gpio_in2";
+					status = "okay";
+			};
+			gpio_in3 {
+					gpio-hog;
+					input;
+					gpios = <TEGRA234_MAIN_GPIO(Z, 1) 0>;
+					label = "gpio_in3";
+					status = "okay";
+			};
+			gpio_out0 {
+					gpio-hog;
+					output-low;
+#if (BOARD_VERSION >= BOARD_VERSION_AA04)
+					gpios = <TEGRA234_MAIN_GPIO(AC, 5) 0>;  // board AA04 config, change GPIO02 to GPIO11
+#else
+                    gpios = <TEGRA234_MAIN_GPIO(G, 7) 0>;  // board AA03 config
+#endif
+					label = "gpio_out0";
+					status = "okay";
+			};
+			gpio_out1 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(AC, 2) 0>;
+					label = "gpio_out1";
+					status = "okay";
+			};
+			j24-16 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(A, 2) 0>;
+					label = "j24-16";
+					status = "okay";
+			};
+			j24-17 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(Y, 0) 0>;
+					label = "j24-17";
+					status = "okay";
+			};
+			j24-18 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(A, 3) 0>;
+					label = "j24-18";
+					status = "okay";
+			};
+			j24-19 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_MAIN_GPIO(Y, 4) 0>;
+					label = "j24-19";
+					status = "okay";
+			};
+		};
+
+		gpio@c2f0000{
+			gpio_out2 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_AON_GPIO(EE, 6) 0>;
+					label = "gpio_out2";
+					status = "okay";
+			};
+			gpio_out3 {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_AON_GPIO(EE, 5) 0>;
+					label = "gpio_out3";
+					status = "okay";
+			};
+			uart_1_2_sel_ctl {
+					gpio-hog;
+					output-low;
+					gpios = <TEGRA234_AON_GPIO(BB, 1) 0>;
+					label = "uart_1_2_sel_ctl";
+					status = "okay";
+			};
+		};
+		leds {
+			compatible = "gpio-leds";
+			led0 {
+					label = "sys-led";
+					gpios = <&gpio TEGRA234_MAIN_GPIO(L, 3) 0>;
+					linux,default-trigger = "heartbeat";
+					default-state = "on";
+			};
+
+			led1 {
+					label = "alarm-led";
+					gpios = <&gpio TEGRA234_MAIN_GPIO(H, 1) 0>;
+					default-state = "off";
+			};
+			led2 {
+					label = "user-led";
+					gpios = <&gpio TEGRA234_MAIN_GPIO(AC, 0) 0>;
+					default-state = "off";
+			};
+		};
+		pps {
+                        gpios = <&gpio TEGRA234_MAIN_GPIO(Q, 6) GPIO_ACTIVE_HIGH>;
+                        compatible = "pps-gpio";
+                        //assert-falling-edge;
+                        status = "okay";
+                };
+
+	};
+	
+
+	gpio-keys {
+		key-power {
+			gpio-key,wakeup;
+		};
+	};
+
+
+};

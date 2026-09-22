@@ -1,0 +1,1979 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// SPDX-FileCopyrightText: Copyright (c) 2023-2024, NVIDIA CORPORATION & AFFILIATE   S. All rights reserved.
+
+#include <dt-bindings/clock/tegra234-clock.h>
+#include <dt-bindings/gpio/tegra234-gpio.h>
+
+//#define PIXEL_PHASE_VAL "yuyv"
+#define PIXEL_PHASE_VAL "uyvy"
+
+/ {
+	vendor-gmsl-camera-info {
+		compatible = "vendor-gmsl-camera-info";
+		GMSL_CAMERA_TYPE = "=AR0234";
+		dtsname = "tegra234-camera-ar0234.dtsi";
+		version = "v1.1.0";
+		GMSLA = "AR0234";
+		GMSLB = "AR0234";
+		description = "AR0234 dual DES, 4 ports x (Depth+RGB)";
+	};
+
+	bus@0 {
+		i2c@3180000 {
+			dser: max96712@29 {
+				compatible = "nvidia,max96712";
+				reg = <0x29>;
+				csi-mode = "2x4";
+			};
+			
+			ar0234_a@0b {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+				dser-ser-init = <1>;
+			};
+			ar0234_b@0c {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_c@0d {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_d@0e {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_e@1b {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+				dser-ser-init = <1>;
+			};
+			ar0234_f@1c {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_g@1d {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_h@1e {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+		};
+		
+		i2c@c250000 {
+			max96712@29 {
+				compatible = "nvidia,max96712";
+				reg = <0x29>;
+				csi-mode = "2x4";
+			};
+			
+			ar0234_a@0b {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+				dser-ser-init = <1>;
+			};
+			ar0234_b@0c {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_c@0d {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_d@0e {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_e@1b {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+				dser-ser-init = <1>;
+			};
+			ar0234_f@1c {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_g@1d {
+				def-addr = <0x3c>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+			ar0234_h@1e {
+				def-addr = <0x3d>;
+				/* Define any required hw resources needed by driver */
+				/* ie. clocks, io pins, power sources */
+				clocks = <&bpmp TEGRA234_CLK_EXTPERIPH1>,
+					   <&bpmp TEGRA234_CLK_EXTPERIPH1>;
+				clock-names = "extperiph1", "pllp_grtba";
+				mclk = "extperiph1";
+			};
+		};
+	};
+};
+
+/ {
+	tegra-capture-vi {
+		num-channels = <16>;
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+				ar0234_vi_in0: endpoint {
+					vc-id = <0>;
+					port-index = <0>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out0>;
+				};
+			};
+			port@1 {
+				reg = <1>;
+				ar0234_vi_in1: endpoint {
+					vc-id = <1>;
+					port-index = <0>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out1>;
+				};
+			};
+			port@2 {
+				reg = <2>;
+				ar0234_vi_in2: endpoint {
+					vc-id = <2>;
+					port-index = <0>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out2>;
+				};
+			};
+			port@3 {
+				reg = <3>;
+				ar0234_vi_in3: endpoint {
+					vc-id = <3>;
+					port-index = <0>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out3>;
+				};
+			};
+			port@4 {
+				reg = <4>;
+				ar0234_vi_in4: endpoint {
+					vc-id = <0>;
+					port-index = <2>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out4>;
+				};
+			};
+			port@5 {
+				reg = <5>;
+				ar0234_vi_in5: endpoint {
+					vc-id = <1>;
+					port-index = <2>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out5>;
+				};
+			};
+			port@6 {
+				reg = <6>;
+				ar0234_vi_in6: endpoint {
+					vc-id = <2>;
+					port-index = <2>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out6>;
+				};
+			};
+			port@7 {
+				reg = <7>;
+				ar0234_vi_in7: endpoint {
+					vc-id = <3>;
+					port-index = <2>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out7>;
+				};
+			};
+			port@8 {
+				reg = <8>;
+				ar0234_vi_in8: endpoint {
+					vc-id = <0>;
+					port-index = <4>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out8>;
+				};
+			};
+			port@9 {
+				reg = <9>;
+				ar0234_vi_in9: endpoint {
+					vc-id = <1>;
+					port-index = <4>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out9>;
+				};
+			};
+			port@10 {
+				reg = <10>;
+				ar0234_vi_in10: endpoint {
+					vc-id = <2>;
+					port-index = <4>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out10>;
+				};
+			};
+			port@11 {
+				reg = <11>;
+				ar0234_vi_in11: endpoint {
+					vc-id = <3>;
+					port-index = <4>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out11>;
+				};
+			};
+			port@12 {
+				reg = <12>;
+				ar0234_vi_in12: endpoint {
+					vc-id = <0>;
+					port-index = <5>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out12>;
+				};
+			};
+			port@13 {
+				reg = <13>;
+				ar0234_vi_in13: endpoint {
+					vc-id = <1>;
+					port-index = <5>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out13>;
+				};
+			};
+			port@14 {
+				reg = <14>;
+				ar0234_vi_in14: endpoint {
+					vc-id = <2>;
+					port-index = <5>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out14>;
+				};
+			};
+			port@15 {
+				reg = <15>;
+				ar0234_vi_in15: endpoint {
+					vc-id = <3>;
+					port-index = <5>;
+					bus-width = <4>;
+					remote-endpoint = <&ar0234_csi_out15>;
+				};
+			};
+		};
+	};
+
+	bus@0 {
+		host1x@13e00000 {
+			nvcsi@15a00000 {
+				num-channels = <16>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				channel@0 {
+					reg = <0>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in0: endpoint@0 {
+								port-index = <0>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out0>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out0: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in0>;
+							};
+						};
+					};
+				};
+				channel@1 {
+					reg = <1>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+								ar0234_csi_in1: endpoint@0 {
+								port-index = <0>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out1>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out1: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in1>;
+							};
+						};
+					};
+				};
+				channel@2 {
+					reg = <2>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in2: endpoint@0 {
+								port-index = <0>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out2>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out2: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in2>;
+							};
+						};
+					};
+				};
+				channel@3 {
+					reg = <3>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in3: endpoint@0 {
+								port-index = <0>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out3>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out3: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in3>;
+							};
+						};
+					};
+				};
+				channel@4 {
+					reg = <4>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in4: endpoint@0 {
+								port-index = <2>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out4>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out4: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in4>;
+							};
+						};
+					};
+				};
+				channel@5 {
+					reg = <5>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+								ar0234_csi_in5: endpoint@0 {
+								port-index = <2>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out5>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out5: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in5>;
+							};
+						};
+					};
+				};
+				channel@6 {
+					reg = <6>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in6: endpoint@0 {
+								port-index = <2>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out6>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out6: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in6>;
+							};
+						};
+					};
+				};
+				channel@7 {
+					reg = <7>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in7: endpoint@0 {
+								port-index = <2>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out7>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out7: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in7>;
+							};
+						};
+					};
+				};
+				channel@8 {
+					reg = <8>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in8: endpoint@0 {
+								port-index = <4>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out8>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out8: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in8>;
+							};
+						};
+					};
+				};
+				channel@9 {
+					reg = <9>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in9: endpoint@0 {
+								port-index = <4>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out9>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out9: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in9>;
+							};
+						};
+					};
+				};
+				channel@10 {
+					reg = <10>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in10: endpoint@0 {
+								port-index = <4>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out10>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out10: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in10>;
+							};
+						};
+					};
+				};
+				channel@11 {
+					reg = <11>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in11: endpoint@0 {
+								port-index = <4>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out11>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out11: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in11>;
+							};
+						};
+					};
+				};
+				channel@12 {
+					reg = <12>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in12: endpoint@0 {
+								port-index = <6>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out12>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out12: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in12>;
+							};
+						};
+					};
+				};
+				channel@13 {
+					reg = <13>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in13: endpoint@0 {
+								port-index = <6>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out13>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out13: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in13>;
+							};
+						};
+					};
+				};
+				channel@14 {
+					reg = <14>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in14: endpoint@0 {
+								port-index = <6>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out14>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out14: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in14>;
+							};
+						};
+					};
+				};
+				channel@15 {
+					reg = <15>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							ar0234_csi_in15: endpoint@0 {
+								port-index = <6>;
+								bus-width = <4>;
+								remote-endpoint = <&ar0234_ar0234_out15>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							ar0234_csi_out15: endpoint@1 {
+								remote-endpoint = <&ar0234_vi_in15>;
+							};
+						};
+					};
+				};
+			};
+		};
+
+		i2c@3180000 {
+			ar0234_a@0b {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0b>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_a";
+					vc_id = "0";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+	
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					//serdes_pix_clk_hz = "187500000";
+					serdes_pix_clk_hz = "375000000";
+					//serdes_pix_clk_hz = "200000000";
+	
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out0: endpoint {
+							vc-id = <0>;
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in0>;
+						};
+					};
+				};
+			};
+	
+			ar0234_b@0c {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0c>;
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+	
+				sensor_model ="gc2145";
+	
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+	
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				use_decibel_gain = "true";
+	
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				//use_sensor_mode_id = "true";
+	
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_a";
+                                        vc_id = "1";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        //serdes_pix_clk_hz = "187500000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        //serdes_pix_clk_hz = "200000000";
+
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out1: endpoint {
+							vc-id = <1>;
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in1>;
+						};
+					};
+				};
+			};
+	
+			ar0234_c@0d {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0d>;
+	
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+	
+				sensor_model ="gc2145";
+	
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+	
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				use_decibel_gain = "true";
+	
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				//use_sensor_mode_id = "true";
+	
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_a";
+                                        vc_id = "2";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        //serdes_pix_clk_hz = "187500000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        //serdes_pix_clk_hz = "200000000";
+
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out2: endpoint {
+							vc-id = <2>;
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in2>;
+						};
+					};
+				};
+			};
+	
+			ar0234_d@0e {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0e>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_a";
+                                        vc_id = "3";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out3: endpoint {
+							vc-id = <3>;
+							port-index = <0>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in3>;
+						};
+					};
+				};
+			};
+			ar0234_e@1b {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1b>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_c";
+                                        vc_id = "0";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out4: endpoint {
+							vc-id = <0>;
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in4>;
+						};
+					};
+				};
+			};
+			ar0234_f@1c {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1c>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_c";
+                                        vc_id = "1";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out5: endpoint {
+							vc-id = <1>;
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in5>;
+						};
+					};
+				};
+			};
+			ar0234_g@1d {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1d>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_c";
+                                        vc_id = "2";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out6: endpoint {
+							vc-id = <2>;
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in6>;
+						};
+					};
+				};
+			};
+			ar0234_h@1e {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1e>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+                                        mclk_khz = "24000";
+                                        num_lanes = "4";
+                                        tegra_sinterface = "serial_c";
+                                        vc_id = "3";
+										phy_mode = "DPHY";
+                                        discontinuous_clk = "no";
+                                        dpcm_enable = "false";
+                                        cil_settletime = "0";
+                                        dynamic_pixel_bit_depth = "16";
+                                        csi_pixel_bit_depth = "16";
+                                        mode_type = "yuv";
+                                        pixel_phase = "uyvy";
+
+                                        active_w = "1920";
+                                        active_h = "1200";
+                                        readout_orientation = "0";
+                                        line_length = "2448";
+                                        inherent_gain = "1";
+                                        pix_clk_hz = "74250000";
+                                        serdes_pix_clk_hz = "375000000";
+                                        gain_factor = "10";
+                                        min_gain_val = "0"; /* dB */
+                                        max_gain_val = "420"; /* dB */
+                                        step_gain_val = "3"; /* 0.3 */
+                                        default_gain = "150";
+                                        min_hdr_ratio = "1";
+                                        max_hdr_ratio = "1";
+                                        framerate_factor = "1000000";
+                                        min_framerate = "60000000";
+                                        max_framerate = "60000000";
+                                        step_framerate = "1";
+                                        default_framerate = "60000000";
+                                        exposure_factor = "1000000";
+                                        min_exp_time = "59"; /*us, 2 lines*/
+                                        max_exp_time = "33333";
+                                        step_exp_time = "1";
+                                        default_exp_time = "33333";/* us */
+                                        embedded_metadata_height = "0";
+                                };
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out7: endpoint {
+							vc-id = <3>;
+							port-index = <2>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in7>;
+						};
+					};
+				};
+			};
+		};
+		
+		i2c@c250000 {
+			ar0234_a@0b {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0b>;
+	
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+	
+				sensor_model ="gc2145";
+	
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+	
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				use_decibel_gain = "true";
+	
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				//use_sensor_mode_id = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_e";
+					vc_id = "0";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+	
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					//serdes_pix_clk_hz = "187500000";
+					serdes_pix_clk_hz = "375000000";
+					//serdes_pix_clk_hz = "200000000";
+	
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out8: endpoint {
+							vc-id = <0>;
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in8>;
+						};
+					};
+				};
+			};
+	
+			ar0234_b@0c {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0c>;
+	
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+	
+				sensor_model ="gc2145";
+	
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+	
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				use_decibel_gain = "true";
+	
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				//use_sensor_mode_id = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_e";
+					vc_id = "1";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+	
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					//serdes_pix_clk_hz = "187500000";
+					serdes_pix_clk_hz = "375000000";
+					//serdes_pix_clk_hz = "200000000";
+	
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out9: endpoint {
+							vc-id = <1>;
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in9>;
+						};
+					};
+				};
+			};
+	
+			ar0234_c@0d {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0d>;
+	
+				/* Physical dimensions of sensor */
+				physical_w = "15.0";
+				physical_h = "12.5";
+	
+				sensor_model ="gc2145";
+	
+				/* Defines number of frames to be dropped by driver internally after applying */
+				/* sensor crop settings. Some sensors send corrupt frames after applying */
+				/* crop co-ordinates */
+				post_crop_frame_drop = "0";
+	
+				/* Convert Gain to unit of dB (decibel) befor passing to kernel driver */
+				use_decibel_gain = "true";
+	
+				/* enable CID_SENSOR_MODE_ID for sensor modes selection */
+				//use_sensor_mode_id = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_e";
+					vc_id = "2";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+	
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					//serdes_pix_clk_hz = "187500000";
+					serdes_pix_clk_hz = "375000000";
+					//serdes_pix_clk_hz = "200000000";
+	
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out10: endpoint {
+							vc-id = <2>;
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in10>;
+						};
+					};
+				};
+			};
+	
+			ar0234_d@0e {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x0e>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_e";
+					vc_id = "3";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					serdes_pix_clk_hz = "375000000";
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out11: endpoint {
+							vc-id = <3>;
+							port-index = <4>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in11>;
+						};
+					};
+				};
+			};
+			ar0234_e@1b {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1b>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_g";
+					vc_id = "0";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					serdes_pix_clk_hz = "375000000";
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out12: endpoint {
+							vc-id = <0>;
+							port-index = <5>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in12>;
+						};
+					};
+				};
+			};
+			ar0234_f@1c {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1c>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_g";
+					vc_id = "1";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					serdes_pix_clk_hz = "375000000";
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out13: endpoint {
+							vc-id = <1>;
+							port-index = <5>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in13>;
+						};
+					};
+				};
+			};
+			ar0234_g@1d {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1d>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_g";
+					vc_id = "2";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					serdes_pix_clk_hz = "375000000";
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out14: endpoint {
+							vc-id = <2>;
+							port-index = <5>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in14>;
+						};
+					};
+				};
+			};
+			ar0234_h@1e {
+				compatible = "nvidia,ar0234_gmsl";
+				v4l2_frmfmt = "cam_gmsl_30fps_1920x1200_frmfmt";
+				reg = <0x1e>;
+				physical_w = "15.0";
+				physical_h = "12.5";
+				sensor_model ="gc2145";
+				post_crop_frame_drop = "0";
+				use_decibel_gain = "true";
+				mode0 {/*mode isx031_MODE_1920X1536_CROP_30FPS*/
+					mclk_khz = "24000";
+					num_lanes = "4";
+					tegra_sinterface = "serial_g";
+					vc_id = "3";
+					phy_mode = "DPHY";
+					discontinuous_clk = "no";
+					dpcm_enable = "false";
+					cil_settletime = "0";
+					dynamic_pixel_bit_depth = "16";
+					csi_pixel_bit_depth = "16";
+					mode_type = "yuv";
+					pixel_phase = "uyvy";
+					active_w = "1920";
+					active_h = "1200";
+					readout_orientation = "0";
+					line_length = "2448";
+					inherent_gain = "1";
+					pix_clk_hz = "74250000";
+					serdes_pix_clk_hz = "375000000";
+					gain_factor = "10";
+					min_gain_val = "0"; /* dB */
+					max_gain_val = "420"; /* dB */
+					step_gain_val = "3"; /* 0.3 */
+					default_gain = "150";
+					min_hdr_ratio = "1";
+					max_hdr_ratio = "1";
+					framerate_factor = "1000000";
+					min_framerate = "60000000";
+					max_framerate = "60000000";
+					step_framerate = "1";
+					default_framerate = "60000000";
+					exposure_factor = "1000000";
+					min_exp_time = "59"; /*us, 2 lines*/
+					max_exp_time = "33333";
+					step_exp_time = "1";
+					default_exp_time = "33333";/* us */
+					embedded_metadata_height = "0";
+				};
+	
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						reg = <0>;
+						ar0234_ar0234_out15: endpoint {
+							vc-id = <3>;
+							port-index = <5>;
+							bus-width = <4>;
+							remote-endpoint = <&ar0234_csi_in15>;
+						};
+					};
+				};
+			};
+		};
+	};
+
+	tegra-camera-platform {
+		compatible = "nvidia, tegra-camera-platform";
+		num_csi_lanes = <16>;
+		max_lane_speed = <20000000>;
+		min_bits_per_pixel = <10>;
+		vi_peak_byte_per_pixel = <2>;
+		vi_bw_margin_pct = <25>;
+		isp_peak_byte_per_pixel = <5>;
+		isp_bw_margin_pct = <25>;
+		modules {
+			module0 {
+				badge = "ar0234_bottomleft";
+				position = "bottomleft";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_a@0b";
+				};
+			};
+			module1 {
+				badge = "ar0234_bottomright";
+				position = "centerleft";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_b@0c";
+				};
+			};
+			module2 {
+				badge = "ar0234_centerleft";
+				position = "centerright";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_c@0d";
+				};
+			};
+			module3 {
+				badge = "ar0234_centerright";
+				position = "topleft";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_d@0e";
+				};
+			};
+			module4 {
+				badge = "ar0234_centerright";
+				position = "topleft";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_e@1b";
+				};
+			};
+			module5 {
+				badge = "ar0234_centerright";
+				position = "topleft";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_f@1c";
+				};
+			};
+			module6 {
+				badge = "ar0234_centerright";
+				position = "topleft";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_g@1d";
+				};
+			};
+			module7 {
+				badge = "ar0234_centerright";
+				position = "topleft";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/ar0234_h@1e";
+				};
+			};
+			module8 {
+				badge = "ar0234_bottomleft";
+				position = "bottomright";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_a@0b";
+				};
+			};
+			module9 {
+				badge = "ar0234_bottomright";
+				position = "topright";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_b@0c";
+				};
+			};
+			module10 {
+				badge = "ar0234_centerleft";
+				position = "bottomcenter";
+				orientation = "1";
+				drivernode0 {
+					/* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_c@0d";
+				};
+			};
+			module11 {
+				badge = "ar0234_centerright";
+				position = "topcenter";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_d@0e";
+				};
+			};
+			module12 {
+				badge = "ar0234_centerright";
+				position = "topcenter";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_e@1b";
+				};
+			};
+			module13 {
+				badge = "ar0234_centerright";
+				position = "topcenter";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_f@1c";
+				};
+			};
+			module14 {
+				badge = "ar0234_centerright";
+				position = "topcenter";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_g@1d";
+				};
+			};
+			module15 {
+				badge = "ar0234_centerright";
+				position = "topcenter";
+				orientation = "1";
+				drivernode0 {
+					 /* Declare PCL support driver (classically known as guid)  */
+					pcl_id = "v4l2_sensor";
+					/* Declare the device-tree hierarchy to driver instance */
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@c250000/ar0234_h@1e";
+				};
+			};
+		};
+	};
+};
+

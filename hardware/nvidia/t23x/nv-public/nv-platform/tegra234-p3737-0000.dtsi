@@ -1,0 +1,241 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// SPDX-FileCopyrightText: Copyright (c) 2022-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+/ {
+	bus@0 {
+		spi@3210000{ /* SPI1 in 40 pin conn */
+			status = "okay";
+			spi@0 { /* chip select 0 */
+				compatible = "tegra-spidev";
+				reg = <0x0>;
+				spi-max-frequency = <50000000>;
+			};
+			spi@1 { /* chips select 1 */
+				compatible = "tegra-spidev";
+				reg = <0x1>;
+				spi-max-frequency = <50000000>;
+			};
+		};
+
+		spi@3230000{ /* SPI3 in 40 pin conn */
+			status = "okay";
+			spi@0 { /* chip select 0 */
+				compatible = "tegra-spidev";
+				reg = <0x0>;
+				spi-max-frequency = <50000000>;
+			};
+			spi@1 { /* chips select 1 */
+				compatible = "tegra-spidev";
+				reg = <0x1>;
+				spi-max-frequency = <50000000>;
+			};
+		};
+
+		mmc@3400000 {
+			vmmc-supply = <&vdd_3v3_sd>;
+		};
+
+		padctl@3520000 {
+			ports {
+				usb2-0 {
+					mode = "otg";
+					usb-role-switch;
+				};
+			};
+		};
+
+		aconnect@2900000 {
+			ahub@2900800 {
+				i2s@2901000 {
+					ports {
+						port@1 {
+							endpoint {
+								// /delete-property/ remote-endpoint;
+								dai-format = "i2s";
+								remote-endpoint = <&rt5640_ep>;
+							};
+						};
+					};
+				};
+
+				i2s@2901100 {
+					ports {
+						port@1 {
+							hdr40_snd_i2s_dap_ep: endpoint {
+							};
+						};
+					};
+				};
+			};
+		};
+
+		i2c@31e0000 { //i2c9 A53 C53
+			status = "okay";
+
+			rt5640:audio-codec@1c {
+				compatible = "realtek,rt5640";
+				reg = <0x1c>;
+				interrupt-parent = <&gpio_aon>;
+				interrupts = <TEGRA234_AON_GPIO(CC, 2) GPIO_ACTIVE_HIGH>;
+				clocks = <&bpmp TEGRA234_CLK_AUD_MCLK>;
+				clock-names = "mclk";
+				realtek,dmic1-data-pin = <RT5640_DMIC1_DATA_PIN_NONE>;
+				realtek,dmic2-data-pin = <RT5640_DMIC2_DATA_PIN_NONE>;
+				realtek,jack-detect-source = <RT5640_JD_SRC_HDA_HEADER>;
+				sound-name-prefix = "CVB-RT";
+				#sound-dai-cells = <1>;
+                status = "okay";
+				port {
+					rt5640_ep: endpoint {
+						link-name = "rt5640-playback";
+						remote-endpoint = <&i2s1_dap>;
+						mclk-fs = <256>;
+					};
+				};
+			};
+		};
+
+		mgbe0: ethernet@6800000 {
+			nvidia,mac-addr-idx = <0>;
+			nvidia,max-platform-mtu = <16383>;
+			/* 1=enable, 0=disable */
+			nvidia,pause_frames = <1>;
+			phy-handle = <&mgbe0_aqr113c_phy>;
+			/* 0:XFI 10G, 1:XFI 5G, 2:USXGMII 10G, 3:USXGMII 5G */
+			nvidia,phy-iface-mode = <0>;
+			nvidia,phy-reset-gpio = <&gpio TEGRA234_MAIN_GPIO(Y, 1) 0>;
+			nvidia,mdio_addr = <0>;
+			//nvidia,pps_op_ctrl = <4>;
+
+			mdio {
+				compatible = "nvidia,eqos-mdio";
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				mgbe0_aqr113c_phy: phy@0 {
+					compatible = "ethernet-phy-ieee802.3-c45";
+					reg = <0x0>;
+					nvidia,phy-rst-pdelay-msec = <150>; /* msec */
+					nvidia,phy-rst-duration-usec = <221000>; /* usec */
+					interrupt-parent = <&gpio>;
+					interrupts = <TEGRA234_MAIN_GPIO(Y, 3) IRQ_TYPE_LEVEL_LOW>;
+					aquantia,led-mode = <0 0xe0ef 1 0x2023 2 0xc0c3>;
+				};
+			};
+		};
+
+		nvpps {
+			status = "okay";
+			compatible = "nvidia,tegra234-nvpps";
+			primary-emac = <&mgbe0>;
+			ptp_tsc_sync_trig_interval = <3>;
+			ptp_tsc_lock_threshold = <20000>; //20us
+			ts-capture-interval = <1000>;
+			nvpps-event-mode-init = <2>; /* 1: GPIO mode, 2: TIMER mode */
+			reg = <0x0 0xc6a0000 0x0 0x1000>;
+		};
+	};
+
+	hdr40_vdd_3v3: regulator@3 {
+		compatible = "regulator-fixed";
+		regulator-name = "vdd-3v3-sys";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+	};
+
+	/* TSC signal generator for cam_fsync (external fsync) - used by SIPL without camera overlay */
+	tsc_sig_gen@c6a0000 {
+		status = "okay";
+		generator@380 {
+			status = "okay";
+		};
+		fsync-groups {
+			status = "disabled";
+		};
+	};
+
+	tegra_sound: sound {
+		compatible = "nvidia,tegra186-audio-graph-card",
+			     "nvidia,tegra186-ape";
+		clocks = <&bpmp TEGRA234_CLK_PLLA>,
+			 <&bpmp TEGRA234_CLK_PLLA_OUT0>,
+			 <&bpmp TEGRA234_CLK_AUD_MCLK>;
+		clock-names = "pll_a", "plla_out0", "extern1";
+		assigned-clocks = <&bpmp TEGRA234_CLK_AUD_MCLK>;
+		assigned-clock-parents = <&bpmp TEGRA234_CLK_PLLA_OUT0>;
+
+		nvidia-audio-card,mclk-fs = <256>;
+		nvidia-audio-card,name = "NVIDIA Jetson AGX Orin APE";
+
+		/delete-property/ widgets;
+		/delete-property/ routing;
+
+				//hdr40_snd_link_i2s: nvidia-audio-card,dai-link@77 { };
+		 widgets =
+                        "Headphone",    "CVB-RT Headphone Jack",
+                        "Microphone",   "CVB-RT Mic Jack",
+                        "Speaker",      "CVB-RT Int Spk",
+                        "Microphone",   "CVB-RT Int Mic";
+
+        routing =
+						"CVB-RT AIF1 Playback", "I2S1 DAP-Playback",
+						"I2S1 DAP-Capture",     "CVB-RT AIF1 Capture",
+                        "CVB-RT Headphone Jack",     "CVB-RT HPOL",
+                        "CVB-RT Headphone Jack",     "CVB-RT HPOR",
+                        "CVB-RT IN1P",               "CVB-RT Mic Jack",
+                        "CVB-RT IN2P",               "CVB-RT Mic Jack",
+                        "CVB-RT IN2N",               "CVB-RT Mic Jack",
+                        "CVB-RT Int Spk",            "CVB-RT SPOLP",
+                        "CVB-RT Int Spk",            "CVB-RT SPORP",
+                        "CVB-RT Int Spk",            "CVB-RT LOUTL",
+                        "CVB-RT Int Spk",            "CVB-RT LOUTR",
+                        "CVB-RT DMIC1",              "CVB-RT Int Mic",
+                        "CVB-RT DMIC2",              "CVB-RT Int Mic";
+
+                nvidia-audio-card,dai-link@76 {
+                        link-name = "rt5640-playback";
+                        codec {
+                                sound-dai = <&rt5640 0>;
+                                prefix = "CVB-RT";
+                        };
+                };
+	};
+
+	eeprom-manager {
+		data-size = <0x100>;
+		bus@0 {
+			i2c-bus = <&gen1_i2c>;
+			eeprom@1 {
+				slave-address = <0x56>;
+				label = "cvb";
+			};
+		};
+		bus@1 {
+			i2c-bus = <&cam_i2c>;
+			eeprom@0 {
+				slave-address = <0x54>;
+				label = "sensor0";
+			};
+			eeprom@1 {
+				slave-address = <0x57>;
+				label = "sensor1";
+			};
+			eeprom@2 {
+				slave-address = <0x52>;
+				label = "sensor2";
+			};
+		};
+	};
+
+	vdd_3v3_sd: regulator-vdd-3v3-sd {
+			compatible = "regulator-fixed";
+			regulator-name = "VDD_3V3_SD";
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
+			gpio = <&gpio TEGRA234_MAIN_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
+			enable-active-high;
+			regulator-boot-on;
+			startup-delay-us = <200000>;
+			off-on-delay-us = <200000>;
+	};
+};
