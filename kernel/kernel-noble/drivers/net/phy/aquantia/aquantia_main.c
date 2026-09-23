@@ -833,18 +833,45 @@ static void aqr107_chip_info(struct phy_device *phydev)
 		   fw_major, fw_minor, build_id, prov_id);
 }
 
+/*
+ * Board LED provision (MMD VEND1 0xc430/0xc431/0xc432), verified on target:
+ *   LED0 0xc0ef - multi-speed link + RX/TX activity
+ *   LED1 0x000f - RX/TX activity only (yellow blink)
+ *   LED2 0xc0c3 - multi-speed link (green solid on link)
+ */
+#define AQR_LED_MODE0_DEFAULT	0xc0ef
+#define AQR_LED_MODE1_DEFAULT	0x000f
+#define AQR_LED_MODE2_DEFAULT	0xc0c3
+
 static void aqr_apply_led_mode_cfg(struct phy_device *phydev)
 {
 	struct aqr107_priv *priv = phydev->priv;
+	int mode0 = AQR_LED_MODE0_DEFAULT;
+	int mode1 = AQR_LED_MODE1_DEFAULT;
+	int mode2 = AQR_LED_MODE2_DEFAULT;
 
-	if (priv->led_mode0 > 0)
-		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xc430, priv->led_mode0);
+	/*
+	 * Prefer DT/probe values when present; otherwise use board-verified
+	 * defaults. Force-write even if DT is stale — early config_init writes
+	 * are often cleared by soft-reset / FW bring-up (regs read 0 after boot
+	 * while late phytool writes stick).
+	 */
+	if (priv) {
+		if (priv->led_mode0 > 0)
+			mode0 = priv->led_mode0;
+		if (priv->led_mode1 > 0)
+			mode1 = priv->led_mode1;
+		if (priv->led_mode2 > 0)
+			mode2 = priv->led_mode2;
+	}
 
-	if (priv->led_mode1 > 0)
-		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xc431, priv->led_mode1);
+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xc430, mode0);
+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xc431, mode1);
+	phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xc432, mode2);
 
-	if (priv->led_mode2 > 0)
-		phy_write_mmd(phydev, MDIO_MMD_VEND1, 0xc432, priv->led_mode2);
+	phydev_info(phydev,
+		    "AQR LED provision: 0xc430=0x%04x 0xc431=0x%04x 0xc432=0x%04x\n",
+		    mode0, mode1, mode2);
 }
 
 static int aqr_read_led_mode_cfg(struct phy_device *phydev)
@@ -854,9 +881,9 @@ static int aqr_read_led_mode_cfg(struct phy_device *phydev)
 	int err = 0;
 	int n = 0;
 
-	priv->led_mode0 = -1;
-	priv->led_mode1 = -1;
-	priv->led_mode2 = -1;
+	priv->led_mode0 = AQR_LED_MODE0_DEFAULT;
+	priv->led_mode1 = AQR_LED_MODE1_DEFAULT;
+	priv->led_mode2 = AQR_LED_MODE2_DEFAULT;
 
 	n = of_property_count_u32_elems(node, "aquantia,led-mode");
 
@@ -885,10 +912,10 @@ static int aqr_read_led_mode_cfg(struct phy_device *phydev)
 				case 0:
 					priv->led_mode0 = led_modes[i + 1];
 					break;
-				case 2:
+				case 1:
 					priv->led_mode1 = led_modes[i + 1];
 					break;
-				case 4:
+				case 2:
 					priv->led_mode2 = led_modes[i + 1];
 					break;
 				default:
@@ -1006,6 +1033,9 @@ static void aqr107_link_change_notify(struct phy_device *phydev)
 	bool downshift, short_reach, afr;
 	int mode, val;
 
+	/* Re-apply after link/FW events; early config_init writes can be wiped. */
+	aqr_apply_led_mode_cfg(phydev);
+
 	if (phydev->state != PHY_RUNNING || phydev->autoneg == AUTONEG_DISABLE)
 		return;
 
@@ -1108,7 +1138,12 @@ static int aqr107_resume(struct phy_device *phydev)
 	if (err)
 		return err;
 
-	return aqr107_wait_processor_intensive_op(phydev);
+	err = aqr107_wait_processor_intensive_op(phydev);
+	if (err)
+		return err;
+
+	aqr_apply_led_mode_cfg(phydev);
+	return 0;
 }
 
 static const u16 aqr_global_cfg_regs[] = {
@@ -1182,7 +1217,20 @@ static int aqr113c_config_init(struct phy_device *phydev)
 	if (ret < 0)
 		return ret;
 
-	return aqr107_fill_interface_modes(phydev);
+	ret = aqr107_fill_interface_modes(phydev);
+	if (ret < 0)
+		return ret;
+
+	/*
+	 * aqr107_config_init() soft-resets the PHY; provision LEDs can end up
+	 * cleared (0xc430..0xc432 == 0). Wait for FW again and re-apply — same
+	 * window where userspace phytool writes succeed.
+	 */
+	ret = aqr_wait_reset_complete(phydev);
+	if (!ret)
+		aqr_apply_led_mode_cfg(phydev);
+
+	return 0;
 }
 
 static int aqr107_probe(struct phy_device *phydev)
